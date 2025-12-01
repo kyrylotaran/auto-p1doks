@@ -1,0 +1,40 @@
+{
+  "name": "auto-p1doks",
+  "version": "1.0.0",
+  "description": "Automated downloader for P1Doks iRacing setups",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "pkg . --target node18-win-x64 --output dist/auto-p1doks.exe --icon p1doks-logo.ico"
+  },
+  "bin": "index.js",
+  "pkg": {
+    "assets": [
+      "USAGE.md",
+      "iracing-cars.json",
+      "pidoks-to-iracing.json"
+    ],
+    "outputPath": "dist"
+  },
+  "keywords": [
+    "iracing",
+    "pidoks",
+    "automation",
+    "setups"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "amazon-cognito-identity-js": "^6.3.16",
+    "axios": "^0.27.2",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^8.2.6"
+  },
+  "devDependencies": {
+    "@yao-pkg/pkg": "^5.15.0",
+    "esbuild": "^0.27.0"
+  },
+  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d"
+}

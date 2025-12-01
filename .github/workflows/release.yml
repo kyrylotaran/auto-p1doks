@@ -1,0 +1,65 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags like v1.0.0
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build executable
+        run: pnpm run build
+
+      - name: Create Release and Upload Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/auto-p1doks.exe
+          body: |
+            ## Auto-P1Doks ${{ github.ref_name }}
+
+            Automated iRacing setup downloader for P1Doks with advanced features.
+
+            ### Features
+            - 🔒 Secure AWS Cognito authentication with refresh tokens
+            - 📁 Advanced folder organization by year/season/week/track/series
+            - 🏁 Multi-series support (IMSA, GT Sprint, Ferrari Challenge, Porsche Cup, etc.)
+            - 🏎️ Smart car selection organized by class (GTP, GT3, GT4, LMP2, etc.)
+            - 💾 Windows AppData credential storage
+            - 🎨 Custom P1Doks branding
+
+            ### Installation
+            1. Download `auto-p1doks.exe` below
+            2. Run the executable
+            3. Enter your P1Doks credentials and iRacing setups path
+            4. Start downloading!
+
+            ### Requirements
+            - Windows 10/11
+            - Active P1Doks subscription
+            - iRacing installed
+
+            ---
+
+            **Full Changelog**: https://github.com/${{ github.repository }}/commits/${{ github.ref_name }}
+          draft: false
+          prerelease: false
